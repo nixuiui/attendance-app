@@ -1,4 +1,5 @@
 import 'package:attendance_app/app/modules/_/example_pages.dart';
+import 'package:attendance_app/app/modules/home/home_pages.dart';
 
 import '../modules/splash/splash_pages.dart';
 
@@ -12,5 +13,6 @@ class AppPages {
   static final routes = [
     ...examplePages,
     ...splashPages,
+    ...homePages,
   ];
 }

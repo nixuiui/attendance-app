@@ -18,6 +18,7 @@ void main() async {
         fontFamily: 'Poppins',
         primaryColor: AppColors.primary,
         errorColor: AppColors.error, 
+        backgroundColor: AppColors.background,
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: AppColors.primary,
           secondary: AppColors.secondary,
