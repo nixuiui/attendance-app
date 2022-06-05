@@ -22,4 +22,10 @@ class LocationMasterController extends GetxController {
     log('$TAG::updateData() -> ${locationMasterData.length}');
   }
   
+  Future deleteData(index) async {
+    locationMasterData.removeAt(index);
+    await locationStorageService.setLocationData(locationMasterData);
+    log('$TAG::updateData() -> ${locationMasterData.length}');
+  }
+  
 }

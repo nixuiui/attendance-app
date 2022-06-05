@@ -25,30 +25,7 @@ class LocationMasterView extends GetView<LocationMasterController> {
                 onRefresh: controller.updateData,
                 child: ListView(
                   children: [
-                    Obx(() => ListView.separated(
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      itemCount: controller.locationMasterData.length,
-                      padding: EdgeInsets.all(16),
-                      separatorBuilder: (_, __) => SizedBox(height: 16), 
-                      itemBuilder: (_, index) => NxBox(
-                        padding: EdgeInsets.all(16),
-                        borderRadius: 8,
-                        borderColor: Colors.grey[200],
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            NxText.lead1(controller.locationMasterData[index].locationName ?? ''),
-                            NxText.body1(controller.locationMasterData[index].address ?? ''),
-                            SizedBox(height: 8),
-                            NxText.small1(
-                              '${controller.locationMasterData[index].latitude}, ${controller.locationMasterData[index].longitude}',
-                              color: Colors.grey,
-                            ),
-                          ],
-                        ),
-                      ), 
-                    )),
+                    _buildLocationList(),
                   ],
                 ),
               ),
@@ -64,5 +41,55 @@ class LocationMasterView extends GetView<LocationMasterController> {
         ),
       ),
     );
+  }
+
+  Widget _buildLocationList() {
+    return Obx(() => controller.locationMasterData.length > 0 ? ListView.separated(
+      shrinkWrap: true,
+      physics: ClampingScrollPhysics(),
+      itemCount: controller.locationMasterData.length,
+      padding: EdgeInsets.all(16),
+      separatorBuilder: (_, __) => SizedBox(height: 16), 
+      itemBuilder: (_, index) => NxBox(
+        padding: EdgeInsets.all(16),
+        borderRadius: 8,
+        borderColor: Colors.grey[200],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            NxText.lead1(controller.locationMasterData[index].locationName ?? ''),
+            NxText.body1(controller.locationMasterData[index].address ?? ''),
+            SizedBox(height: 4),
+            NxText.small1(
+              '${controller.locationMasterData[index].latitude}, ${controller.locationMasterData[index].longitude}',
+              color: Colors.grey,
+            ),
+            SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  onTap: () => controller.deleteData(index),
+                  child: NxText(
+                    'DELETE',
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w700,
+                  )
+                ),
+              ],
+            ),
+          ],
+        ),
+      ), 
+    ) : Padding(
+      padding: EdgeInsets.all(32.0),
+      child: Center(
+        child: NxText(
+          'NO LOCATION DATA',
+          fontSize: 14,
+          color: Colors.grey,
+        )
+      ),
+    ));
   }
 }
