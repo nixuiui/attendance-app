@@ -35,6 +35,13 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  # Core Libray
+  get: ^4.6.1
+  get_storage: ^2.0.3
+  injectable: ^1.4.1
+  nx_flutter_ui_starter_pack: ^1.0.9
+  intl: ^0.17.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
