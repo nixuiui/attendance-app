@@ -1,5 +1,6 @@
 import 'package:attendance_app/app/modules/_/example_pages.dart';
 import 'package:attendance_app/app/modules/home/home_pages.dart';
+import 'package:attendance_app/app/modules/location_master/location_master_pages.dart';
 
 import '../modules/splash/splash_pages.dart';
 
@@ -14,5 +15,6 @@ class AppPages {
     ...examplePages,
     ...splashPages,
     ...homePages,
+    ...locationMasterPages,
   ];
 }

@@ -8,5 +8,8 @@ abstract class Routes {
   static const example = '/example';
   static const splash = '/splash';
   static const home = '/home';
+  
+  static const locationMaster = '/location-master';
+  static const locationMasterForm = '/location-master-form';
 
 }

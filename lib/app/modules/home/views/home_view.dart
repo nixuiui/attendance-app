@@ -1,4 +1,5 @@
 import 'package:attendance_app/app/modules/home/controllers/home_controller.dart';
+import 'package:attendance_app/app/routes/app_pages.dart';
 import 'package:attendance_app/resources/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,7 @@ class HomeView extends GetView<HomeController> {
           padding: EdgeInsets.all(16),
           children: [
             NxBox(
+              onPressed: () => Get.toNamed(Routes.locationMaster),
               borderRadius: 8,
               padding: EdgeInsets.all(16),
               color: AppColors.primaryDark,
