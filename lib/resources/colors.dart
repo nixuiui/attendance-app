@@ -7,4 +7,5 @@ class AppColors {
   static const Color secondaryDark = Color(0xFF54B8B6);
   static const Color error = Color(0xFFFF0000);
   static const Color background = Color(0xFFFBFBFB);
+  static const Color backgroundDark = Color(0xFFCFE9FA);
 }

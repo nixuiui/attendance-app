@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:attendance_app/app/models/location_data.dart';
 import 'package:get/get.dart';
 
@@ -11,8 +13,13 @@ class LocationMasterController extends GetxController {
   final locationMasterData = RxList<LocationData>([]);
 
   init() async {
-    locationMasterData.value = await locationStorageService.locationData ?? [];
-    print('$TAG::init()');
+    locationMasterData.value = locationStorageService.locationData ?? [];
+    log('$TAG::init()');
+  }
+
+  Future updateData() async {
+    locationMasterData.value = locationStorageService.locationData ?? [];
+    log('$TAG::updateData() -> ${locationMasterData.length}');
   }
   
 }
