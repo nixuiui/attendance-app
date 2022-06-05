@@ -46,6 +46,7 @@ class HomeView extends GetView<HomeController> {
             ),
             SizedBox(height: 16),
             NxBox(
+              onPressed: () => Get.toNamed(Routes.attendance),
               borderRadius: 8,
               padding: EdgeInsets.all(16),
               color: AppColors.secondaryDark,

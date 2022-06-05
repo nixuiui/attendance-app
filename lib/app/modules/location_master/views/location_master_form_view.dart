@@ -51,7 +51,11 @@ class LocationMasterFormView extends GetView<LocationMasterFormController> {
           padding: 12,
           controller: TextEditingController()
               ..text = controller.locationName.value ?? ''
-              ..selection = TextSelection.collapsed(offset: controller.locationName.value?.length ?? 0)
+              ..selection = TextSelection.collapsed(offset: controller.locationName.value?.length ?? 0),
+          onChanged: (val) {
+            controller.locationName.value = val;
+            controller.isValid();
+          },
         )),
         SizedBox(height: 16),
         _buildLocationPicker(),

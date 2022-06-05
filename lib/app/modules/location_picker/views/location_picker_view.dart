@@ -1,9 +1,9 @@
 import 'dart:developer';
 
+import 'package:attendance_app/helpers/location_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:nx_flutter_ui_starter_pack/nx_loading_spinner.dart';
 
 import '../../../../services/local_storage_service.dart';
@@ -66,36 +66,6 @@ class _LocationPickerViewState extends State<LocationPickerView> {
       currectLocation.value = await getCurrentLocation();
     }
     print('setCurrentLocation: ${currectLocation.value}');
-  }
-
-  Future<LatLng> getCurrentLocation() async {
-    final location = Location();
-
-    late bool _serviceEnabled;
-    late PermissionStatus _permissionGranted;
-    late LocationData _locationData;
-
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        return const LatLng(-6.1753871, 106.8249641);
-      }
-    }
-
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        return const LatLng(-6.1753871, 106.8249641);
-      }
-    }
-
-    _locationData = await location.getLocation();
-    return LatLng(
-      _locationData.latitude ?? 0.0, 
-      _locationData.longitude ?? 0.0
-    );
   }
 
   void closeBottomSheet() {

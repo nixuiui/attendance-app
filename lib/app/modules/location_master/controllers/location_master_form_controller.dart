@@ -35,6 +35,7 @@ class LocationMasterFormController extends GetxController {
         );
       }
     }
+    isValid();
     log('$TAG::init()');
   }
 
@@ -43,7 +44,7 @@ class LocationMasterFormController extends GetxController {
     locationAddress.value = place.formattedAddress;
     locationLatLng.value = LatLng(
       place.geometry!.location!.lat!, 
-      place.geometry!.location!.lat!
+      place.geometry!.location!.lng!
     );
     isValid();
   }

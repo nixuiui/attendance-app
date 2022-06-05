@@ -11,5 +11,9 @@ abstract class Routes {
   
   static const locationMaster = '/location-master';
   static const locationMasterForm = '/location-master-form';
+  
+  static const attendance = '/attendance';
+  static const attendanceForm = '/attendance-form';
+  static const attendanceLogs = '/attendance-log';
 
 }
