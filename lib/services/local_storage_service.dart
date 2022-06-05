@@ -16,12 +16,12 @@ class LocalStorageService extends GetxService{
 
   LocalStorageService() : box = GetStorage();
   
-  List<LocationData>? get locationData {
+  List<LocationData> get locationData {
     final locationData = box.read<String>(LocalStorageKeys.locationData);
     if(locationData != null) {
       return locationDataFromJson(locationData);
     }
-    return null;
+    return [];
   }
 
   Future setLocationData(List<LocationData>? data) async {
@@ -29,8 +29,8 @@ class LocalStorageService extends GetxService{
   }
   
   Future addLocationData(LocationData data) async {
-    var baseData = locationData ?? [];
-    baseData.add(data);
+    var baseData = locationData;
+    baseData.insert(0, data);
     await box.write(LocalStorageKeys.locationData, locationDataToJson(baseData));
   }
 

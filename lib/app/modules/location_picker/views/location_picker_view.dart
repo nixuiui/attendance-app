@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -44,6 +46,7 @@ class _LocationPickerViewState extends State<LocationPickerView> {
 
   @override
   void initState() {
+    initialPosition.value = widget.initialPosition;
     setCurrentLocation();
     focusNode.addListener(() {
       if (focusNode.hasFocus) {
@@ -55,6 +58,8 @@ class _LocationPickerViewState extends State<LocationPickerView> {
   }
 
   Future setCurrentLocation() async {
+    log(initialPosition.value?.latitude.toString() ?? '');
+
     if (initialPosition.value != null) {
       currectLocation.value = initialPosition.value;
     } else {

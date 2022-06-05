@@ -13,12 +13,12 @@ class LocationMasterController extends GetxController {
   final locationMasterData = RxList<LocationData>([]);
 
   init() async {
-    locationMasterData.value = locationStorageService.locationData ?? [];
+    locationMasterData.value = locationStorageService.locationData;
     log('$TAG::init()');
   }
 
   Future updateData() async {
-    locationMasterData.value = locationStorageService.locationData ?? [];
+    locationMasterData.value = locationStorageService.locationData;
     log('$TAG::updateData() -> ${locationMasterData.length}');
   }
   

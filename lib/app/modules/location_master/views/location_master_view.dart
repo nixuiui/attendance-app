@@ -44,7 +44,7 @@ class LocationMasterView extends GetView<LocationMasterController> {
   }
 
   Widget _buildLocationList() {
-    return Obx(() => controller.locationMasterData.length > 0 ? ListView.separated(
+    return Obx(() => controller.locationMasterData.isNotEmpty ? ListView.separated(
       shrinkWrap: true,
       physics: ClampingScrollPhysics(),
       itemCount: controller.locationMasterData.length,
@@ -68,6 +68,22 @@ class LocationMasterView extends GetView<LocationMasterController> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(
+                      Routes.locationMasterForm,
+                      arguments: {
+                        'index': index
+                      }
+                    );
+                  },
+                  child: NxText(
+                    'EDIT',
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w700,
+                  )
+                ),
+                SizedBox(width: 16),
                 GestureDetector(
                   onTap: () => controller.deleteData(index),
                   child: NxText(

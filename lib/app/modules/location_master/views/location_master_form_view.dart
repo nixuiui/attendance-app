@@ -3,6 +3,7 @@ import 'package:attendance_app/app/widgets/map_view.dart';
 import 'package:attendance_app/resources/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nx_flutter_ui_starter_pack/nx_flutter_ui_starter_pack.dart';
 
 import '../../../models/place_detail.dart';
@@ -63,11 +64,20 @@ class LocationMasterFormView extends GetView<LocationMasterFormController> {
       borderColor: Colors.grey[200],
       borderRadius: 8,
       onPressed: () async {
-        var result = await Get.to(() => LocationPickerView());
+        LatLng? initialPosition = controller.locationLatLng.value == null 
+            ? null 
+            : LatLng(
+                controller.locationLatLng.value!.latitude, 
+                controller.locationLatLng.value!.longitude
+              );
+        var result = await Get.to(() => LocationPickerView(
+          initialPosition: initialPosition,
+          useCurrentLocation: initialPosition == null,
+        ));
         print('result: $result');
         if(result != null) {
-          controller.location.value = result as PlaceDetail;
-          controller.locationName.value = controller.location.value?.name ?? '';
+          final place = result as PlaceDetail;
+          controller.updateLocationInfo(place);
         }
       },
       child: Column(
@@ -92,7 +102,7 @@ class LocationMasterFormView extends GetView<LocationMasterFormController> {
             ),
           ),
           Obx(() {
-            if(controller.location.value != null) {
+            if(controller.locationAddress.value != null) {
               return NxBox(
                 color: AppColors.background,
                 child: Column(
@@ -102,8 +112,8 @@ class LocationMasterFormView extends GetView<LocationMasterFormController> {
                       width: Get.width,
                       height: 200,
                       child: MapView(
-                        currentLat: controller.location.value?.geometry?.location?.lat,
-                        currentLng: controller.location.value?.geometry?.location?.lng,
+                        currentLat: controller.locationLatLng.value?.latitude,
+                        currentLng: controller.locationLatLng.value?.longitude,
                       ),
                     ),
                     Padding(
@@ -111,10 +121,10 @@ class LocationMasterFormView extends GetView<LocationMasterFormController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          NxText.body1(controller.location.value?.formattedAddress ?? ''),
+                          NxText.body1(controller.locationAddress.value ?? ''),
                           SizedBox(height: 8),
                           NxText.small1(
-                            '${controller.location.value?.geometry?.location?.lat}, ${controller.location.value?.geometry?.location?.lng}',
+                            '${controller.locationLatLng.value?.latitude}, ${controller.locationLatLng.value?.longitude}',
                             color: Colors.grey,
                           ),
                         ],
@@ -135,10 +145,10 @@ class LocationMasterFormView extends GetView<LocationMasterFormController> {
   Widget _buildButton() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: NxButton.primary(
-        onPressed: controller.saveLocation,
+      child: Obx(() => NxButton.primary(
+        onPressed: controller.isFormValid.value ? () => controller.saveLocation() : null,
         child: NxText('Save Location', color: Colors.white),
-      ),
+      )),
     );
   }
 }
